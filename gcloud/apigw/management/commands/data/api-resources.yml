@@ -2589,3 +2589,80 @@ paths:
           appVerifiedRequired: true
           resourcePermissionRequired: true
         disabledStages: []
+  /modify_template_executor_agent/{template_id}/{bk_biz_id}/:
+    post:
+      operationId: modify_template_executor_agent
+      description: 修改模板的执行代理人
+      tags:
+      - 通用接口
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    description: 错误码
+                  data:
+                    type: object
+                    properties:
+                      template_id:
+                        type: integer
+                        description: 模板ID
+                      executor_proxy:
+                        type: string
+                        description: 更新后的执行代理人
+                    description: result=true 时成功数据
+                  result:
+                    type: boolean
+                    description: true/false 操作是否成功
+                  message:
+                    type: string
+                    description: result=false 时错误信息
+                  trace_id:
+                    type: string
+                    description: open telemetry trace_id
+          description: ''
+      parameters:
+      - in: path
+        name: template_id
+        schema:
+          type: string
+        required: true
+        description: 模板ID
+      - in: path
+        name: bk_biz_id
+        schema:
+          type: string
+        required: true
+        description: 项目ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - executor_proxy
+              properties:
+                executor_proxy:
+                  type: string
+                  description: 执行代理人，必传参数
+        required: true
+        description: ''
+      x-bk-apigateway-resource:
+        isPublic: true
+        allowApplyPermission: true
+        matchSubpath: false
+        backend:
+          type: HTTP
+          method: post
+          path: /{env.api_sub_path}apigw/modify_template_executor_agent/{template_id}/{project_id}/
+          matchSubpath: false
+          timeout: 0
+          upstreams: {}
+          transformHeaders: {}
+        authConfig:
+          userVerifiedRequired: true
+        disabledStages: []
