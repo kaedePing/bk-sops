@@ -2658,7 +2658,7 @@ paths:
         backend:
           type: HTTP
           method: post
-          path: /{env.api_sub_path}apigw/modify_template_executor_agent/{template_id}/{project_id}/
+          path: /{env.api_sub_path}apigw/modify_template_executor_agent/{template_id}/{bk_biz_id}/
           matchSubpath: false
           timeout: 0
           upstreams: {}
